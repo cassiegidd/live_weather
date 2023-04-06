@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Weather Search</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./assets/style.css" />
+    
+  </head>
+  
+  <body>
+    <section>
+        <div class="relative overflow-hidden bg-cover bg-no-repeat" style="background-position: 50%; background-image: url('https://media.istockphoto.com/id/531889697/photo/weather-forecast-concept.jpg?b=1&s=170667a&w=0&k=20&c=Jci9nrgcCSfOx8ZgfO9KbMKr3r0i28B1fwN20r8KmFA='); height: 350px;">
+            <div class="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed" style="background-color: rgba(0, 0, 0, 0.75)">
+                <div class="flex h-full items-center justify-center">
+                    <div class="px-6 text-center text-white md:px-12">
+                        <h1 class="mb-2 text-6xl font-bold">Live Weather</h1>
+                        <div class="w-screen flex h-full items-center justify-center">
+                            <img id="user-location-icon" width="0px" height="0px">
+                            <h2 id="user-location-city" class="mb-0 text-5xl font-bold"></h2>
+                        </div>    
+                        <h3 id="current-day" class="mb-0 text-4xl font-bold" ></h3>
+                        <p id="user-location-weather" class="mb-10 text-2l font-medium"></p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </section>  
+
+    <section id="search-forecast" class="flex">
+
+        <div id="search" class="font-bold text-xl mb-2">
+            <form onsubmit="getPoint(); return false" id="city-search" class="w-1/5 grid grid-rows-4 text-gray-700 text-base">
+                <label for="city-input" class="text-center text-2xl">City Search</label> 
+                <input type="text" id="city-input" placeholder="enter city name" class="text-center rounded border-2 border-neutral-50 text-2l font-semibold">
+                <input type="button" id="search-button" value="search" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-m font-semibold text-gray-700 mr-2 mb-">
+            </form>
+            <div id="search-history"></div>
+        </div>
+
+        
+        <div id="forecast-cards" class="flex mb-4 w-4/5">
+            <div class="flex-1 bg-gray-400 h-12">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                      <p class="text-gray-700 text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                      </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2">
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="flex-1 bg-gray-500 h-12">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                      <p class="text-gray-700 text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                      </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2">
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="flex-1 bg-gray-400 h-12">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                      <p class="text-gray-700 text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                      </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2">
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="flex-1 bg-gray-500 h-12">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                      <p class="text-gray-700 text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                      </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2">
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="flex-1 bg-gray-400 h-12">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                      <p class="text-gray-700 text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                      </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2">
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        
+        
+    </section>
+    
+    <script src="assets/script.js"></script>
+  </body>
+</html>
+
+<!-- <div>
+    <img id="icon" width="0" height="0" style="border:none"/>
+</div> -->
