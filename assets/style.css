@@ -7,3 +7,16 @@
 /* #user-location-city {
     line-height: 40px;
 } */
+#search-forecast {
+    width: 100vw;
+}
+#forecast-div {
+    display: flex;
+    justify-content: space-evenly;
+}
+.forecast-cards {
+    font-weight: bold;
+    color: rgb(75, 87, 105);
+    margin: .25rem .25rem .25rem .25rem;
+    justify-content: space-evenly;
+}

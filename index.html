@@ -28,19 +28,23 @@
         </div>        
     </section>  
 
-    <section id="search-forecast" class="flex">
+    <section id="search-forecast" class="flex-1 grid grid-cols-6">
 
-        <div id="search" class="font-bold text-xl mb-2">
-            <form onsubmit="getPoint(); return false" id="city-search" class="w-1/5 grid grid-rows-4 text-gray-700 text-base">
+        <div id="search" class="font-bold text-xl mb-2 col-span-1 md:row-span-1">
+            <form onsubmit="getPoint(); return false" id="city-search" class="grid grid-rows-3 text-gray-700 text-base">
                 <label for="city-input" class="text-center text-2xl">City Search</label> 
                 <input type="text" id="city-input" placeholder="enter city name" class="text-center rounded border-2 border-neutral-50 text-2l font-semibold">
                 <input type="button" id="search-button" value="search" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-m font-semibold text-gray-700 mr-2 mb-">
             </form>
-            <div id="search-history"></div>
+            <div id="search-history" class="flex flex-col"></div>
+        </div>
+
+        <div id="forecast-div" class="col-span-5">
+
         </div>
 
         
-        <div id="forecast-cards" class="flex mb-4 w-4/5">
+        <!-- <div id="forecast-cards" class="gap-5 flex mb-4 w-4/5">
             <div class="flex-1 bg-gray-400 h-12">
                 <div class="max-w-sm rounded overflow-hidden shadow-lg">
                     <div class="px-6 py-4">
@@ -116,11 +120,11 @@
                     </div>
                   </div>
             </div>
-        </div>
+        </div> -->
         
         
     </section>
-    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="assets/script.js"></script>
   </body>
 </html>
