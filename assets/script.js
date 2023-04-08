@@ -1,28 +1,21 @@
-var cityInput = document.getElementById('city-input');
-// function input() {
-//     console.log(cityInput.value);
-// }
-var searchBtn = document.getElementById('search-button');
-var userLocation = document.querySelector('#user-location-city');
-var userLocationWeather = document.querySelector('#user-location-weather');
-// var userLocationIcon = document.querySelector('#user-location-icon');
-var forecastDiv = document.querySelector('#forecast-div');
+var cityInput = document.getElementById('city-input'); //search input
+var searchBtn = document.getElementById('search-button'); 
+var userLocation = document.querySelector('#user-location-city'); //appends and displays the city user is currently in 
+var userLocationWeather = document.querySelector('#user-location-weather'); //appends and displays weather data of city user is currently in
+var forecastDiv = document.querySelector('#forecast-div'); //div used to append and display the five day weather forecast
 
-
+// this function gets the users longitude and latitude and then calls a function to get the weather data for that point
 pageLoad()
 function pageLoad() {
 const successCallback = (position) => {
-    console.log(position);
-    var userLat = position.coords.latitude;
-    var userLon = position.coords.longitude;
-    console.log(userLon);
-    console.log(userLat);
-    getUserLocation(userLat,userLon);
+    var userLat = position.coords.latitude; //variable that contains the users current latitude
+    var userLon = position.coords.longitude; //variable that contains the users current longitude
+    getUserLocation(userLat,userLon); //calling function that will retrieve weather data for users current location
   };
   const errorCallback = (error) => {
-    console.log(error);
   };
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
   function getUserLocation(userLat,userLon) {
       fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+userLat+"&lon="+userLon+"&appid=5544851bf4ad5ff456c250c8b1a41d03&units=imperial")
       .then((response)=>response.json())
@@ -48,10 +41,12 @@ const successCallback = (position) => {
           document.getElementById('user-location-icon').width = "50";
           userLocationWeather.textContent = userLocationTemp + " | " + userLocationDescription + " | " + userLocationWind + " | " + userLocationHumidity;          
           
-          for(var i=7; i<40; i+=8) {
+          for(var i=7; i<40; i+=8) { //loop to append data to webpage
           var cardForecast = document.createElement('div');
+          forecastDiv.classList.add('bg-indigo-400');
           var dateForecast = document.createElement('p');
           dateForecast.textContent = new Date(data.list[i].dt*1000).toLocaleString("en-us", {weekday:"long"});
+          dateForecast.classList.add('text-white');
           var iconForecast = document.createElement('img');
           iconForecast.height = "30";
           iconForecast.width = "30";
@@ -70,18 +65,12 @@ const successCallback = (position) => {
           forecastDiv.appendChild(cardForecast);
         }
 
-        //   var currentCard=document.createElement('div');
-        //   var currentDate= document.createElement('p');
-        //   currentDate.textContent=userLocationDate;
-        //   currentCard.appendChild(currentDate);
-
-        //   text.appendChild(currentCard);
-
         })      
     }
     
 }
 
+// this function gets the longitude and latitude the city that the user types into the search bar
 function getPoint() {
    
     fetch("http://api.openweathermap.org/geo/1.0/direct?q="+cityInput.value+"&limit=1&appid=5544851bf4ad5ff456c250c8b1a41d03")
@@ -92,12 +81,12 @@ function getPoint() {
         console.log(lat);
         var lon = data[0].lon;
         console.log(lon);
-        getWeather(lat,lon);
+        getWeather(lat,lon); //calling function to get the weather data for the longitude and latitude fetched from the "getPoint" function
         document.getElementById('city-input').value='';
     })
     
 }
-
+// this function will use the longitude and latitude data fetched from the "getPoint" function to retrieve and display weather data
 function getWeather(latinput,loninput) {
     console.log(latinput);
     fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+latinput+"&lon="+loninput+"&appid=5544851bf4ad5ff456c250c8b1a41d03&units=imperial")
@@ -126,7 +115,6 @@ function getWeather(latinput,loninput) {
         console.log(data);
         var addIcon = data.url;  
         console.log(addIcon);
-        // placeIcon(addIcon);
     })
 
         userLocation.textContent = cityName;
@@ -137,10 +125,12 @@ function getWeather(latinput,loninput) {
 
         document.getElementById('forecast-div').innerHTML = "";
 
-        for(var i=7; i<40; i+=8) {
+        for(var i=7; i<40; i+=8) { //loop to display weather data to webpage
             var cardForecast = document.createElement('div');
+            forecastDiv.classList.add('bg-indigo-100');
             var dateForecast = document.createElement('p');
             dateForecast.textContent = new Date(data.list[i].dt*1000).toLocaleString("en-us", {weekday:"long"});
+            dateForecast.classList.add('text-white');
             var iconForecast = document.createElement('img');
             iconForecast.height = "30";
             iconForecast.width = "30";
@@ -159,14 +149,17 @@ function getWeather(latinput,loninput) {
             forecastDiv.appendChild(cardForecast);
     }
 })
+        // gathers and sets data for local storage
         var cityHistory = JSON.parse(localStorage.getItem("city-history")) || [];
         cityHistory.push(cityInput.value);
         localStorage.setItem("city-history",JSON.stringify(cityHistory));
-        createSearchBtn();
+        createSearchBtn(); //calling function to gather localstorage info and display it on a 'recent search' button 
+        recentlySearched(); //calling function to retrieve and display weather data when button is clicked
+        
 
 }
 
-function createSearchBtn() {
+function createSearchBtn() { //function to gather data from local storage and display it to a created button
     var cityHistory = JSON.parse(localStorage.getItem("city-history")) || [];
     document.getElementById('search-history').innerHTML = "";
     for (var i=0; i<cityHistory.length; i++) {
@@ -180,24 +173,19 @@ function createSearchBtn() {
 
 }
 createSearchBtn()
-// function placeIcon(addIcon) {
-//     document.getElementById('icon').src = addIcon;
-//     document.getElementById('icon').height = "50";
-//     document.getElementById('icon').width = "50";
-// }
+recentlySearched ()
 
+searchBtn.addEventListener('click', getPoint); //when user pushes the search button, initial weather fetch will begin
 
-searchBtn.addEventListener('click', getPoint);
-// searchBtn.addEventListener('click', function (){
-//     var cityInput = document.getElementById('city-input').value.trim();
-//     getPoint(cityInput);
-// })
-
-// $('.history').on('click', function(event) {
-//     var buttonValue = $(this).val();
-//     cityInput = buttonValue;
-//     console.log(cityInput);
-//     console.log(buttonValue);
-//     document.getElementById('search-history').innerHTML = "";
-//     getPoint();
-// })
+function recentlySearched() { // function to retrieve data when selected button is pressed
+$('.history').on('click', function(event) {
+    var buttonValue = $(this).val();
+    console.log(buttonValue);
+    fetch("http://api.openweathermap.org/geo/1.0/direct?q="+buttonValue+"&limit=1&appid=5544851bf4ad5ff456c250c8b1a41d03")
+    .then((response)=>response.json())
+    .then((data)=> {
+        var lat = data[0].lat;
+        var lon = data[0].lon;
+        getWeather(lat,lon);
+    }) 
+})}
