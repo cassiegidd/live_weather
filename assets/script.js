@@ -73,7 +73,7 @@ const successCallback = (position) => {
 // this function gets the longitude and latitude the city that the user types into the search bar
 function getPoint() {
    
-    fetch("http://api.openweathermap.org/geo/1.0/direct?q="+cityInput.value+"&limit=1&appid=5544851bf4ad5ff456c250c8b1a41d03")
+    fetch("https://api.openweathermap.org/geo/1.0/direct?q="+cityInput.value+"&limit=1&appid=5544851bf4ad5ff456c250c8b1a41d03")
     .then((response)=>response.json())
     .then((data)=> {
         console.log(data);
@@ -181,7 +181,7 @@ function recentlySearched() { // function to retrieve data when selected button 
 $('.history').on('click', function(event) {
     var buttonValue = $(this).val();
     console.log(buttonValue);
-    fetch("http://api.openweathermap.org/geo/1.0/direct?q="+buttonValue+"&limit=1&appid=5544851bf4ad5ff456c250c8b1a41d03")
+    fetch("https://api.openweathermap.org/geo/1.0/direct?q="+buttonValue+"&limit=1&appid=5544851bf4ad5ff456c250c8b1a41d03")
     .then((response)=>response.json())
     .then((data)=> {
         var lat = data[0].lat;
