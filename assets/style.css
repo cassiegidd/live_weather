@@ -1,12 +1,4 @@
-/* #city-search {
-    width: 25vw;
-    display: flex;
-    flex-direction: column;
-} */
 
-/* #user-location-city {
-    line-height: 40px;
-} */
 #testing {
     display: flex;
     flex-direction: column;
@@ -33,9 +25,3 @@
     border: rgb(213, 218, 221) solid;
     border-radius: 5px;
 }
-/* .forecast-cards {
-    font-weight: bold;
-    color: rgb(75, 87, 105);
-    margin: .25rem .25rem .25rem .25rem;
-    justify-content: space-evenly;
-} */
